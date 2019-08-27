@@ -25,12 +25,25 @@ import java.util.Objects;
 @Slf4j
 public class ApplicationStartUp implements ApplicationListener<ContextRefreshedEvent> {
 
+
+    /**
+     * 包路径, 修改为自己的
+     */
     private static final String packageName = "com.yideb.cp.settlement.entity";
+
+
+    /**
+     * 所有表名列表
+     */
     private static final String[] tbs = new String[]{
             "sm_commission",
             "cp_finance_param"
     };
 
+    /**
+     * 生成的文件, java 在指定的包路径下,   xml 在 resources下的 mapper 下
+     * @param contextRefreshedEvent
+     */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         String javaDir = System.getProperty("user.dir") + "\\src\\main\\java";

@@ -36,8 +36,18 @@ public class ApplicationStartUp implements ApplicationListener<ContextRefreshedE
      * 你想转化的所有表名列表
      */
     private static final String[] tbs = new String[]{
+            "cp_finance_param",
+            "dd_order",
+            "dd_order_activity",
+            "dd_order_item",
+            "dl_activity",
+            "dl_activity_rule_fullcut",
+            "dl_activity_rule_fullcut_product",
             "sm_commission",
-            "cp_finance_param"
+            "dl_settlement_order_record",
+            "dl_settlement_order_record_detail",
+            "sm_settlement_record",
+            "sm_settlement_record_detail"
     };
 
     /**

@@ -125,7 +125,7 @@ public class Dao {
             sb.append("import java.util.Date;").append("\n");
         }
         sb.append("\n");
-        sb.append("/**\n" + " * <b>Application name：</b> DdOrder.java <br>\n" + " * <b>Application describing：").append(comment).append(" </b> <br>\n").append(" * <b>Copyright：</b> Copyright &copy; 2019 明医众禾科技（北京）有限责任公司 版权所有。<br>\n").append(" * <b>Company：</b> 明医众禾科技（北京）有限责任公司 <br>\n").append(" * <b>Date：</b> 2019年08月27日 14:12 <br>\n").append(" * <b>@author：</b> <a href=\"mailto:limz@miyzh.com\"> 李明哲 </a> <br>\n").append(" * <b>@version：</b>V1.0.0 <br>\n").append(" */").append("\n");
+        sb.append("/**\n" + " * <b>Application name：</b> ").append(clzName).append(".java <br>\n" + " * <b>Application describing：").append(comment).append(" </b> <br>\n").append(" * <b>Copyright：</b> Copyright &copy; 2019 明医众禾科技（北京）有限责任公司 版权所有。<br>\n").append(" * <b>Company：</b> 明医众禾科技（北京）有限责任公司 <br>\n").append(" * <b>Date：</b> 2019年08月27日 14:12 <br>\n").append(" * <b>@author：</b> <a href=\"mailto:limz@miyzh.com\"> 李明哲 </a> <br>\n").append(" * <b>@version：</b>V1.0.0 <br>\n").append(" */").append("\n");
         sb.append("\n");
         sb.append("@Data").append("\n");
         sb.append("@Table(\"").append(tbname).append("\")").append("\n");

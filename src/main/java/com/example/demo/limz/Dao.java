@@ -88,9 +88,9 @@ public class Dao {
         String finalPk = pk;
         columns.forEach(column -> {
             if (column.getName().equalsIgnoreCase(finalPk)) {
-                mapper.append("    <id column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(column.getType()).append("\" />").append("\n");
+                mapper.append("    <id column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(column.getType().toUpperCase()).append("\" />").append("\n");
             } else {
-                mapper.append("    <result column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(column.getType()).append("\" />").append("\n");
+                mapper.append("    <result column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(column.getType().toUpperCase()).append("\" />").append("\n");
             }
         });
         mapper.append("  </resultMap>").append("\n");

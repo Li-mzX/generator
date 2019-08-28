@@ -7,6 +7,7 @@ package com.example.demo.limz;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -88,9 +89,9 @@ public class Dao {
         String finalPk = pk;
         columns.forEach(column -> {
             if (column.getName().equalsIgnoreCase(finalPk)) {
-                mapper.append("    <id column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(column.getType().toUpperCase()).append("\" />").append("\n");
+                mapper.append("    <id column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(getJdbcType(column.getType())).append("\" />").append("\n");
             } else {
-                mapper.append("    <result column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(column.getType().toUpperCase()).append("\" />").append("\n");
+                mapper.append("    <result column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(getJdbcType(column.getType())).append("\" />").append("\n");
             }
         });
         mapper.append("  </resultMap>").append("\n");
@@ -259,6 +260,13 @@ public class Dao {
             return "java.lang.String";
         }
         throw new Exception("未知的类型~!!" + type);
+    }
+
+    public String getJdbcType(String type) {
+        if ("INT".equalsIgnoreCase(type)) {
+            return JdbcType.INTEGER.name();
+        }
+        return type.toUpperCase();
     }
 
 }

@@ -267,7 +267,7 @@ public class Dao {
             return JdbcType.INTEGER.name();
         }
         if ("DATETIME".equalsIgnoreCase(type)) {
-            return JdbcType.DATE.name();
+            return JdbcType.TIMESTAMP.name();
         }
         return type.toUpperCase();
     }

@@ -36,7 +36,7 @@ public class ApplicationStartUp implements ApplicationListener<ContextRefreshedE
      * 你想转化的所有表名列表
      */
     private static final String[] tbs = new String[]{
-            "cp_finance_param"
+            "sm_withdraw_batch_relation"
     };
 
     /**

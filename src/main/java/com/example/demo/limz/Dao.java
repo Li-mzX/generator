@@ -269,6 +269,9 @@ public class Dao {
         if ("DATETIME".equalsIgnoreCase(type)) {
             return JdbcType.TIMESTAMP.name();
         }
+        if ("TEXT".equalsIgnoreCase(type)) {
+            return JdbcType.LONGVARCHAR.name();
+        }
         return type.toUpperCase();
     }
 

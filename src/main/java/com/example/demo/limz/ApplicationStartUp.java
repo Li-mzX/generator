@@ -29,14 +29,15 @@ public class ApplicationStartUp implements ApplicationListener<ContextRefreshedE
     /**
      * 包路径, 修改为自己的
      */
-    private static final String packageName = "com.yideb.scm.operation.module.common.entity";
+    private static final String packageName = "com.yideb.cp.settlement.entity";
 
 
     /**
      * 你想转化的所有表名列表
      */
     private static final String[] tbs = new String[]{
-            "sm_withdraw_batch_relation"
+            "dl_settlement_order_record",
+            "dl_settlement_order_record_detail"
     };
 
     /**

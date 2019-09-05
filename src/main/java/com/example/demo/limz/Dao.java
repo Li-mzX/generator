@@ -135,7 +135,7 @@ public class Dao {
         for (Column column : columns) {
             String type = column.getType();
             type = getType(type);
-            sb.append("    /** ").append(column.getComment()).append(" */").append(";\n");
+            sb.append("    /** ").append(column.getComment()).append(" */").append("\n");
             if (pk.equalsIgnoreCase(column.getName())) {
                 sb.append("    @Id");
                 if (isAuto) {

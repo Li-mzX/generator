@@ -137,13 +137,15 @@ public class Dao {
             type = getType(type);
             sb.append("    /** ").append(column.getComment()).append(" */").append("\n");
             if (pk.equalsIgnoreCase(column.getName())) {
-                sb.append("    @Id");
+                sb.append("    @Id(");
+                sb.append("value = \"").append(column.getName()).append("\"");
                 if (isAuto) {
-                    sb.append("(idType = IdType.AUTO)");
+                    sb.append(", idType = IdType.AUTO");
                 }
-                sb.append("\n");
+                sb.append(")\n");
+            } else {
+                sb.append("    @Column(\"").append(column.getName()).append("\")").append("\n");
             }
-            sb.append("    @Column(\"").append(column.getName()).append("\")").append("\n");
             sb.append("    private ").append(type).append(" ").append(column.getField()).append(";\n");
             sb.append("\n");
         }

@@ -88,6 +88,7 @@ public class Dao {
         mapper.append("  <resultMap id=\"BaseResultMap\" type=\"").append(pack).append(".").append(clzName).append("\" >").append("\n");
         String finalPk = pk;
         columns.forEach(column -> {
+            mapper.append("    <!-- ").append(column.getComment()).append(" -->").append("\n");
             if (column.getName().equalsIgnoreCase(finalPk)) {
                 mapper.append("    <id column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(getJdbcType(column.getType())).append("\" />").append("\n");
             } else {

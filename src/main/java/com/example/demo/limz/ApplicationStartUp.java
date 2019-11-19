@@ -4,7 +4,6 @@
  *******************************************************************************/
 package com.example.demo.limz;
 
-import jdk.nashorn.internal.ir.IfNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -36,18 +35,23 @@ public class ApplicationStartUp implements ApplicationListener<ContextRefreshedE
      * 你想转化的所有表名列表
      */
     private static final String[] tbs = new String[]{
-            "sm_account_record",
-            "sm_account"
+            "sys_file"
     };
 
     /**
+     * 数据库名
+     */
+    public static final String schema = "myscdb2-5";
+
+    /**
      * 生成的文件, java 在指定的包路径下,   xml 在 resources下的 mapper 下
+     *
      * @param contextRefreshedEvent
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        String javaDir = System.getProperty("user.dir") + "\\src\\main\\java";
-        String mapDir = System.getProperty("user.dir") + "\\src\\main\\resources\\mapper";
+        String javaDir = System.getProperty("user.dir") + "/src/main/java";
+        String mapDir = System.getProperty("user.dir") + "/src/main/resources/mapper";
         String[] split = packageName.split("\\.");
         File fd = new File(javaDir);
         for (String s : split) {
@@ -58,9 +62,9 @@ public class ApplicationStartUp implements ApplicationListener<ContextRefreshedE
                     return Objects.equals(s, name);
                 }
             });
-            javaDir +=( "/"+s);
+            javaDir += ("/" + s);
             fd = new File(javaDir);
-            if (list == null || list.length == 0){
+            if (list == null || list.length == 0) {
                 fd.mkdir();
             }
         }
@@ -73,11 +77,13 @@ public class ApplicationStartUp implements ApplicationListener<ContextRefreshedE
 
         try {
             for (String tbname : tbs) {
-                String test = dao.test(packageName, tbname,javaDir,mapDir);
+                String test = dao.test(packageName, tbname, javaDir, mapDir);
                 log.info(test);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            System.exit(0);
         }
     }
 }

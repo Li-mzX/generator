@@ -1,5 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://192.168.1.207:3306/myscdb2-5?userUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://192.168.1.204:3306/myscdb2-5?userUnicode=true&characterEncoding=utf-8
     username: root
-    password: root
+    password: myzh1234
+#    url: jdbc:mysql://www.yidab.com:61003/myscdb2-5-pre-4?userUnicode=true&characterEncoding=utf-8
+#    username: myscdb2_pre
+#    password: myscdb2preYDB

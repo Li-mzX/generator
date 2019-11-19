@@ -20,6 +20,8 @@ import java.sql.ResultSet;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.example.demo.limz.ApplicationStartUp.schema;
+
 /**
  * <b>Application name：</b> Dao.java <br>
  * <b>Application describing： </b> <br>
@@ -43,7 +45,7 @@ public class Dao {
         PreparedStatement ps;
         ResultSet rs;
         String comment = "";
-        ps = conn.prepareStatement("select table_comment from information_schema.tables where table_name = ? and  table_schema = 'myscdb2-5'");
+        ps = conn.prepareStatement("select table_comment from information_schema.tables where table_name = ? and  table_schema = '" + schema + "'");
         ps.setString(1, tbname);
         rs = ps.executeQuery();
         if (rs.next()) {
@@ -51,7 +53,7 @@ public class Dao {
         }
         rs.close();
         ps.close();
-        ps = conn.prepareStatement("select column_name,extra from information_schema.columns where table_schema = 'myscdb2-5'  and table_name = ? and column_key = 'PRI'");
+        ps = conn.prepareStatement("select column_name,extra from information_schema.columns where table_schema = '" + schema + "'  and table_name = ? and column_key = 'PRI'");
         ps.setString(1, tbname);
         rs = ps.executeQuery();
         String pk = "";
@@ -68,7 +70,7 @@ public class Dao {
                 "\n" +
                 "from information_schema.columns \n" +
                 "\n" +
-                "where table_name=? and table_schema='myscdb2-5'");
+                "where table_name=? and table_schema='" + schema + "'");
         ps.setString(1, tbname);
         rs = ps.executeQuery();
         List<Column> columns = new ArrayList<>();
@@ -85,22 +87,11 @@ public class Dao {
         mapper.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>").append("\n");
         mapper.append("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >").append("\n");
         mapper.append("<mapper namespace=\"").append(clzName).append("Mapper\" >").append("\n");
-        mapper.append("  <resultMap id=\"BaseResultMap\" type=\"").append(pack).append(".").append(clzName).append("\" >").append("\n");
-        String finalPk = pk;
-        columns.forEach(column -> {
-            mapper.append("    <!-- ").append(column.getComment()).append(" -->").append("\n");
-            if (column.getName().equalsIgnoreCase(finalPk)) {
-                mapper.append("    <id column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(getJdbcType(column.getType())).append("\" />").append("\n");
-            } else {
-                mapper.append("    <result column=\"").append(column.getName()).append("\" property=\"").append(column.getField()).append("\" jdbcType=\"").append(getJdbcType(column.getType())).append("\" />").append("\n");
-            }
-        });
-        mapper.append("  </resultMap>").append("\n");
         mapper.append("  <sql id=\"Base_Column_List\" >").append("\n");
-        String columnsStr = columns.stream().map(Column::getName).collect(Collectors.joining(","));
-        mapper.append("    ").append(columnsStr).append("\n");
+        String columnsStr = columns.stream().map(c -> "    " + c.getName()).collect(Collectors.joining(",\n"));
+        mapper.append(columnsStr).append("\n");
         mapper.append("  </sql>").append("\n");
-        mapper.append("  <select id=\"selectByPrimaryKey\" resultMap=\"BaseResultMap\" >").append("\n");
+        mapper.append("  <select id=\"selectByPrimaryKey\" resultType=\"").append(pack).append(".").append(clzName).append("\" >").append("\n");
         mapper.append("  select").append("\n");
         mapper.append("  <include refid=\"Base_Column_List\" />").append("\n");
         mapper.append("  from ").append(tbname).append("\n");
@@ -151,14 +142,14 @@ public class Dao {
             sb.append("\n");
         }
         sb.append("}");
-        File javaFile = new File(javaDir + "\\" + clzName + ".java");
+        File javaFile = new File(javaDir + "/" + clzName + ".java");
         PrintWriter out = new PrintWriter(javaFile);
         out.write(sb.toString());
         out.flush();
         out.close();
 
 
-        File mapperFile = new File(mapDir + "\\" + clzName + "Mapper.xml");
+        File mapperFile = new File(mapDir + "/" + clzName + "Mapper.xml");
         out = new PrintWriter(mapperFile);
         out.write(mapper.toString());
         out.flush();
